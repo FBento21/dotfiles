@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Shift every window of every workspace to next workspace
+# One only needs to rename workspaces
+# For example:
+# 1) 1. 2. 3. 4.
+# 2) We want to add a workspace betwen 2. and 3.
+# 3) Move 4.->5., Move 3.->4
+# 4) We now have an empty 3. workspace!
+
+current_workspace=$(swaymsg -t get_workspaces | jq '.[] | select(.focused==true).name')
+
+total_workspaces=$( swaymsg -t get_workspaces -r | jq '. | sort_by(.num)[] | .name')
+workspaces_rev=$(echo $total_workspaces | rev)
+
+echo $current_workspace
+echo $total_workspaces
+echo $workspaces_rev
+
+current_number=${current_workspace:1:1}
+
+for workspace in $workspaces_rev; do
+	work_number=${workspace:1:1}
+	if [[ $work_number -eq $((current_number-1)) ]]; then
+		break
+	fi
+	swaymsg rename workspace $work_number to $((work_number+1))
+	echo $number
+done
+swaymsg workspace $current_number

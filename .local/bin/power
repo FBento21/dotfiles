@@ -1,0 +1,22 @@
+#!/bin/bash
+
+op=$( echo -e " Desligar\n Reiniciar\n Suspender\n Bloquear\n Sair" | wofi -i --sort-order=alphabetical --dmenu | awk '{print tolower($2)}' )
+
+case $op in
+	desligar)
+		shutdown now
+		;;
+	reiniciar)
+		shutdown -r now
+		;;	
+	suspender)
+		systemctl $op
+		;;
+	bloquear)
+		swaylock -e -f -i /home/francisco/Imagens/nasa_blur.png
+		;;
+	sair)
+		hyprctl dispatch exit
+		;;
+esac
+

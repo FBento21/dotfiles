@@ -1,0 +1,17 @@
+#!/bin/bash
+
+#Read pdf files
+pdf_files=$(cat $HOME/.cache/tracker_files.txt)
+
+# Pass pdfs to wofi
+pdf_symbol=""
+selected_path=$(echo -e "$pdf_files" | wofi -i --dmenu)
+
+if [ -z "$selected_path" ]; then
+  exit
+fi
+
+initial_path="$HOME"
+
+# Read pdf
+evince "${initial_path}${selected_path}"

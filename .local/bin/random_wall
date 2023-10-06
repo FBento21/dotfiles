@@ -1,0 +1,11 @@
+#!/bin/bash
+
+while true; do
+    wall_path="$HOME/Imagens/Wallpapers"
+    random_wallpaper=$(ls "$wall_path" | shuf -n 1)
+    full_path="$wall_path/$random_wallpaper"
+    swaybg -i $full_path -m fill &
+    lock_screen_path="$HOME/.cache/lock_screen/lock.jpg"
+    convert -blur 0x20 $full_path $lock_screen_path
+    sleep 1d
+done

@@ -1,0 +1,5 @@
+#!/bin/bash
+rm -f /home/francisco/.cache/tracker_files.txt
+
+find ~/ -type f -iname "*.pdf" ! -path "*/.*" ! -path "*/miniconda3/*" ! -path "*/Alemão_A1/*" | awk '{ gsub("$HOME/", ""); print }' >> $HOME/.cache/tracker_files.txt
+

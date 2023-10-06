@@ -1,0 +1,6 @@
+#!/bin/bash
+
+workspace=$(expr $(hyprctl activeworkspace | grep ID | awk '{print $3}'))
+if [ $workspace != 10 ]; then
+    hyprctl dispatch workspace $(expr $workspace + 1)
+fi

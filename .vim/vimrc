@@ -1,0 +1,135 @@
+" GENERAL COMMANDS:
+
+" Set the leader key to a space
+let mapleader = "\<space>"
+" Set the maximum amount of lines to scroll when moving the cursor off the screen
+set nocompatible
+" Center buffer
+set scrolloff=999
+" Enable mouse support
+set mouse=a
+" Copy/paste to system clipboard on Wayland
+autocmd TextYankPost * if (v:event.operator == 'y' || v:event.operator == 'd') | silent! execute 'call system("wl-copy", @")' | endif
+nnoremap p :let @"=substitute(system("wl-paste"), '<C-v><C-m>', '', 'g')<cr>p
+" Highlight on search
+set hlsearch
+" Clear search highlighting with Ctrl-l
+nnoremap <C-l> :noh<CR>
+" Enable relative line numbers
+set relativenumber
+" Highlight matching parenthesis
+set showmatch
+" Enable folding with 'marker' method
+set foldmethod=marker
+" Line length marker at 80 columns
+set colorcolumn=80
+" Vertical split to the right
+set splitright
+" Horizontal split to the bottom
+set splitbelow
+" Ignore case letters when searching
+set ignorecase
+" Ignore lowercase for the whole pattern if there's any uppercase character
+set smartcase
+" Wrap on word boundary
+set linebreak
+" Enable 24-bit RGB colors
+set termguicolors
+" Set global statusline
+set laststatus=1
+" Remove trailing whitespace on save
+autocmd BufWritePre * %s/\s\+$//e
+" Disable auto-commenting new lines
+autocmd BufEnter * set fo-=c fo-=r fo-=o
+" Use Visual lines
+nnoremap j gj
+nnoremap k gk
+" Use spaces instead of tabs
+set expandtab
+" Number of spaces for each shiftwidth
+set shiftwidth=4
+" Number of spaces for a tab character
+set tabstop=4
+" Enable smart indenting
+set smartindent
+"utf-8 enconding
+set encoding=utf-8
+" Add menu in the bottom bar
+set wildmenu
+
+" Vim-Plug:
+call plug#begin()
+    Plug 'lervag/vimtex'
+        let g:tex_flavor='latex'
+        let g:vimtex_view_method='zathura_simple'
+    Plug 'morhetz/gruvbox'
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'sirver/ultisnips'
+        let g:UltiSnipsExpandTrigger = '<A-tab>'
+        let g:UltiSnipsJumpForwardTrigger = '<A-tab>'
+        let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'sheerun/vim-polyglot'
+    Plug 'mhinz/vim-startify'
+    Plug 'preservim/nerdtree'
+call plug#end()
+
+" Vimtex config
+filetype plugin indent on
+syntax enable
+
+"Theme
+let g:gruvbox_italic=1
+autocmd vimenter * ++nested colorscheme gruvbox
+set background=dark    " Setting dark mode
+
+" Open Vim in the last position
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
+endif
+
+"Coc configs
+set nobackup
+set nowritebackup
+set updatetime=100
+set signcolumn=yes
+
+" Tab complete with snippets
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+"Configure python debug
+nnoremap <buffer> <F6> :exec '!python -m pudb' shellescape(@%, 1)<cr>
+
+" Configure terminal for python
+" Define a function to open a terminal and apply custom settings
+
+function! OpenTerminalAndResize()
+    if &filetype == 'python'
+        " Open a new terminal window in the directory of the opened file
+        set autochdir
+        term
+        " Apply custom resizing settings (adjust these values as needed)
+        resize 10
+        setlocal termwinsize=0x220
+        setlocal nowrap
+    endif
+endfunction
+
+
+" Create an autocmd to trigger when any file is opened
+autocmd BufReadPost * call OpenTerminalAndResize()
+
