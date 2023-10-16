@@ -63,12 +63,12 @@ call plug#begin()
         let g:tex_flavor='latex'
         let g:vimtex_view_method='zathura_simple'
     Plug 'morhetz/gruvbox'
+    Plug 'joshdick/onedark.vim'
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'sirver/ultisnips'
-        let g:UltiSnipsExpandTrigger = '<A-tab>'
-        let g:UltiSnipsJumpForwardTrigger = '<A-tab>'
-        let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+        let g:UltiSnipsExpandTrigger = '<C-j>'
+        let g:UltiSnipsJumpForwardTrigger = '<C-j>'
     Plug 'jiangmiao/auto-pairs'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'sheerun/vim-polyglot'
@@ -81,9 +81,10 @@ filetype plugin indent on
 syntax enable
 
 "Theme
-let g:gruvbox_italic=1
-autocmd vimenter * ++nested colorscheme gruvbox
-set background=dark    " Setting dark mode
+colorscheme onedark
+"let g:gruvbox_italic=1
+"autocmd vimenter * ++nested colorscheme gruvbox
+"set background=dark    " Setting dark mode
 
 " Open Vim in the last position
 if has("autocmd")
