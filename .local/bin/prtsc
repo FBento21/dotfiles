@@ -1,23 +1,22 @@
 #!/bin/bash
 
-op=$(echo -e " Screen\n Window\n Selection" | wofi -i --sort-order=alphabetical --dmenu | awk '{print tolower($2)}' )
+op=$(echo -e "    Ecrã\n   Janela\n   Seleção" | wofi -i --sort-order=alphabetical --dmenu --columns=3 -L 3 --width=15% -b| awk '{print tolower($2)}' )
 
 name="$HOME/Imagens/Capturas de ecrã/Captura de ecrã de "
 name+=$(date '+%Y-%m-%d %H-%M-%S')
 name+=".png"
 
+echo $op
+
 case $op in
-	screen)
-        sleep 0.4s
+	ecrã)
 		grim "$name"
 		;;
-	window)
-        w_pos=`hyprctl activewindow | grep 'at:' | cut -d':' -f2 | tr -d ' ' | tail -n1`
-        w_size=`hyprctl activewindow | grep 'size:' | cut -d':' -f2 | tr -d ' ' | tail -n1 | sed s/,/x/g`
-        sleep 0.4s
-        grim -g "$w_pos $w_size" "$name"
+	janela)
+        swaymsg -t get_tree | jq -r '.. | select(.focused?) | .rect | "\(.x),\(.y) \(.width)x\(.height)"' | grim -g - "$name"
+
 		;;
-	selection)
+	seleção)
 		slurp | grim -g - "$name"
 		;;
 esac

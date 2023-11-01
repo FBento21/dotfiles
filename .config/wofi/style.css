@@ -1,94 +1,52 @@
-/* Frappe Peach */
-@define-color accent #ef9f76;
-@define-color txt #cad3f5;
-@define-color bg #303446;
-@define-color bg2 #51576d;
+window {
+margin: 0px;
+border: 1px solid #bd93f9;
+background-color: #282a36;
+border-radius: 15px;
+}
 
- * {
-    font-family: 'JetBrains Mono Nerd Font','FontAwesome', monospace;
-    font-size: 12px;
- }
+#input {
+margin: 5px;
+border: none;
+color: #f8f8f2;
+background-color: #44475a;
+}
 
- /* Window */
- window {
-    margin: 0px;
-    padding: 10px;
-    border: 3px solid @accent;
-    border-radius: 7px;
-    background-color: @bg;
-    animation: slideIn 0.2s ease-in-out both;
- }
+#inner-box {
+margin: 5px;
+border: none;
+background-color: #282a36;
+}
 
- /* Slide In */
- @keyframes slideIn {
-    0% {
-       opacity: 0;
-    }
+#outer-box {
+margin: 5px;
+border: none;
+background-color: #282a36;
+}
 
-    100% {
-       opacity: 1;
-    }
- }
+#scroll {
+margin: 0px;
+border: none;
+}
 
- /* Inner Box */
- #inner-box {
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    background-color: @bg;
-    animation: fadeIn 0.5s ease-in-out both;
- }
+#text {
+margin: 5px;
+border: none;
+color: #f8f8f2;
+}
 
- /* Fade In */
- @keyframes fadeIn {
-    0% {
-       opacity: 0;
-    }
+#entry.activatable #text {
+color: #282a36;
+}
 
-    100% {
-       opacity: 1;
-    }
- }
+#entry > * {
+color: #f8f8f2;
+}
 
- /* Outer Box */
- #outer-box {
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    background-color: @bg;
- }
+#entry:selected {
+background-color: #44475a;
+}
 
- /* Scroll */
- #scroll {
-    margin: 0px;
-    padding: 10px;
-    border: none;
- }
-
- /* Input */
- #input {
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    color: @accent;
-    background-color: @bg2;
-    animation: fadeIn 0.5s ease-in-out both;
- }
-
- /* Text */
- #text {
-    margin: 5px;
-    padding: 10px;
-    border: none;
-    color: @txt;
-    animation: fadeIn 0.5s ease-in-out both;
- }
-
- /* Selected Entry */
- #entry:selected {
-   background-color: @accent;
- }
-
- #entry:selected #text {
-    color: @bg;
- }
+#entry:selected #text {
+font-weight: bold;
+}

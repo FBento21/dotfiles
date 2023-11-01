@@ -1,95 +1,86 @@
 * {
-    font-family: "UbuntuMono Nerd Font";
-    font-size: 12px;
+	font-size: 13px;
+	font-family: JetBrainsMono Nerd Font;
 }
-
 
 window#waybar {
-    background-color: #c7830e;
-    color: #ffffff;
+	background: #282a36;
+	color: #f8f8f2;
+    min-height: 10px;
+    border-radius: 0px;
 }
 
-
-.modules-left {
-	background-color: #323232;
-	padding: 0px 0px 0px 0px;
+tooltip {
+  background: #282a36;
+  border: 0px solid #bd93f9;
+  border-radius: 10px;
 }
 
-
-.modules-right {
-	background-color: #323232;
-	padding: 0px 2px 0px 0px;
+tooltip label {
+  color: #f8f8f2;
 }
-
-
-#custom-scratch {
-	background-color: #323232;
-	color: #b8b8b8;
-	padding: 0px 9px 0px 9px;
-}
-
 
 #workspaces {
-	background-color: #323232;
-	padding: 0px 4px 0px 0px;
+	padding: 2px 10px;
 }
-
 
 #workspaces button {
-	padding: 0px 4px 0px 4px;
-	color: #888888;
+    min-width: 0px;
+    min-height: 0px;
+	color: #f8f8f2;
 }
 
-
-#workspaces button.active {
-	padding: 0px 4px 0px 4px;
-	background-color: #c7830e;
-	color: #ffffff;
+#workspaces button.focused {
+	color: #50fa7b;
 }
 
+#workspaces button:hover {
+	background: #282a36;
+	border: #282a36;
+    color: #bd93f9;
+}
 
 #window {
-	 color: #ffffff;
-	 background-color: #c7830e;
-     padding: 0px 4px 0px 4px;
+    color: #61afef;
+	padding: 2px 10px;
 }
 
-
-window#waybar.empty #window {
-	background-color: transparent;
-	color: transparent;
+#memory {
+	color: #ffb86c;
+	padding: 2px 10px;
 }
-
-
-window#waybar.empty {
-	background-color: #323232;
-}
-
-
-#network, #temperature, #backlight, #pulseudio, #battery {
-    padding: 0px 4px 0px 4px;
-}
-
 
 #clock {
-	margin: 0px 4px 0px 4px;
+    color: #50fa7b;
+	padding: 2px 10px;
 }
 
-
-#tray{
-   padding: 0px 4px 0px 4px;
-   margin: 0px 4px 0px 4px;
+#cpu {
+	color: #8be9fd;
+    padding: 2px 10px;
 }
 
-
-#battery.critical {
-   color: #ff5555;
+#disk {
+	color: #50fa7b;
+	padding: 2px 10px;
 }
 
-
-#network.disconnected {
-    color: #ff5555;
+#battery {
+    color: #f8f8f2;
+	padding: 2px 10px;
 }
 
+#network {
+    color: #f8f8f2;
+	padding: 2px 10px;
+}
 
+#tray {
+    padding: 2px 10px;
+}
+
+#custom-spotify {
+    color: #8be9fd;
+	padding: 2px;
+}
 
