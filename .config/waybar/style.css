@@ -4,7 +4,7 @@
 }
 
 window#waybar {
-	background: #282a36;
+	background: rgba(39, 41, 53, 0.60);
 	color: #f8f8f2;
     min-height: 10px;
     border-radius: 0px;
@@ -83,4 +83,13 @@ tooltip label {
     color: #8be9fd;
 	padding: 2px;
 }
+
+#battery.warning {
+   color: #f9ff54;
+}
+
+#battery.critical {
+   color: #ff5555;
+}
+
 

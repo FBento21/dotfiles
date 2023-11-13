@@ -70,8 +70,9 @@ set autochdir
 " Vim-Plug:
 call plug#begin()
     Plug 'lervag/vimtex'
-        let g:tex_flavor='latex'
+        " let g:tex_flavor='latex'
         let g:vimtex_view_method='zathura_simple'
+        let g:vimtex_compiler_engine = 'lualatex'
     Plug 'Mofiqul/dracula.nvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}

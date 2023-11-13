@@ -11,6 +11,9 @@ alias grep='grep --color=auto'
 alias vim='vim --servername vim'
 PS1='\[\e[95m\][\[\e[91m\]\w\[\e[95m\]]\[\e[38;5;208m\]$(git branch 2>/dev/null | grep '"'"'*'"'"' | colrm 1 2) \[\e[0m\]'
 
+export EDITOR="nvim"
+
+
 # Add .local/bin to the Path
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/bin/site_perl:$PATH"
