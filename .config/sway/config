@@ -8,62 +8,59 @@ set $right l
 # Your preferred terminal emulator
 set $term kitty
 # Your preferred application launcher
-# Note: pass the final command to swaymsg so that the resulting window can be opened
-# on the original workspace that the command was run on.
 set $menu wofi --show drun -I -i --width=40% -L 7 | xargs swaymsg exec --
-
 ### Output configuration
 #
 # Default wallpaper
-output * bg $HOME/.local/bin/random_wall fill
+output * bg $HOME/Imagens/Mountain.jpg fill
 #
-
 ### Idle configuration
-exec swayidle -w \
-      timeout 300 'swaylock -f -i $HOME/.cache/lock_screen/lock.jpg' \
-      timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-      before-sleep 'swaylock -f -c $HOME/.cache/lock_screen/lock.jpg'
+# exec swayidle -w \
+#       timeout 300 'swaylock -f -i $HOME/.cache/lock_screen/lock.jpg' \
+#       timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+#       before-sleep 'swaylock -f -c $HOME/.cache/lock_screen/lock.jpg'
+
+exec LT="$lock_timeout" ST="$screen_timeout" LT=${LT:-300} ST=${ST:-60} && \
+    swayidle -w \
+        timeout $LT 'swaylock -f -i $HOME/.cache/lock_screen/lock.jpg' \
+        timeout $((LT + ST)) 'swaymsg "output * power off"' \
+                      resume 'swaymsg "output * power on"'  \
+        timeout $ST 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * power off"' \
+             resume 'pgrep -xu "$USER" swaylock >/dev/null && swaymsg "output * power on"'  \
+        before-sleep 'swaylock -f -i $HOME/.cache/lock_screen/lock.jpg' \
+        lock 'swaylock -f -i $HOME/.cache/lock_screen/lock.jpg' \
+        unlock 'pkill -xu "$USER" -SIGUSR1 swaylock'
 
 ### Input configuration
 input "1:1:AT_Translated_Set_2_keyboard" {
    xkb_layout pt
 }
-
 input "10248:257:MSFT0001:00_2808:0101_Touchpad" {
    dwt enabled
    tap enabled
    natural_scroll enabled
    middle_emulation enabled
 }
-
 # Gestures
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
 #
-
 ### Key bindings
 #
 # Basics:
 #
     # Start a terminal
     bindsym $mod+Return exec $term
-
     # Kill focused window
     bindsym $mod+Shift+q kill
-
     # Start your launcher
     bindsym $mod+d exec $menu
-
     floating_modifier $mod normal
-
     # Reload the configuration file
     bindsym $mod+Shift+c reload
-
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec $HOME/.local/bin/power
-#
 # Moving around:
-#
     # Move your focus around
     bindsym $mod+$left focus left
     bindsym $mod+$down focus down
@@ -74,7 +71,6 @@ bindgesture swipe:left workspace next
     bindsym $mod+Down focus down
     bindsym $mod+Up focus up
     bindsym $mod+Right focus right
-
     # Move the focused window with the same, but add Shift
     bindsym $mod+Shift+$left move left
     bindsym $mod+Shift+$down move down
@@ -87,7 +83,6 @@ bindgesture swipe:left workspace next
     bindsym $mod+Shift+Right move right
 #
 # Workspaces:
-#
     # Switch to workspace
     bindsym $mod+1 workspace number 1
     bindsym $mod+2 workspace number 2
@@ -118,21 +113,16 @@ bindgesture swipe:left workspace next
     # respectively.
     bindsym $mod+b splith
     bindsym $mod+v splitv
-
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
     bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
-
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen
-
     # Toggle the current focus between tiling and floating mode
     bindsym $mod+Shift+space floating toggle
-
     # Swap focus between the tiling area and the floating area
     bindsym $mod+space focus mode_toggle
-
     # Move focus to the parent container
     bindsym $mod+a focus parent
 #
@@ -140,10 +130,8 @@ bindgesture swipe:left workspace next
 #
     # Sway has a "scratchpad", which is a bag of holding for windows.
     # You can send windows there and get them back later.
-
     # Move the currently focused window to the scratchpad
     bindsym $mod+Shift+minus move scratchpad
-
     # Show the next scratchpad window or hide the focused scratchpad window.
     # If there are multiple scratchpad windows, this command cycles through them.
     bindsym $mod+minus scratchpad show
@@ -155,13 +143,11 @@ mode "resize" {
     bindsym $down resize grow height 10px
     bindsym $up resize shrink height 10px
     bindsym $right resize grow width 10px
-
     # Ditto, with arrow keys
     bindsym Left resize shrink width 10px
     bindsym Down resize grow height 10px
     bindsym Up resize shrink height 10px
     bindsym Right resize grow width 10px
-
     # Return to default mode
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -189,27 +175,86 @@ bar {
     swaybar_command waybar
 }
 
-# Customization
+### Window Rules
+for_window [class="Chromium-browser"] mark Browser
+for_window [class="Brave-browser"] mark Browser
+for_window [class="firefox"]  mark Browser
+for_window [app_id="Chromium-browser"] mark Browser
+for_window [app_id="brave-browser"] mark Browser
+for_window [app_id="firefox"] mark Browser
 
+# inhibit scrensaver for fullscreen browser windows
+for_window [con_mark="Browser"] {
+    inhibit_idle fullscreen
+}
+
+# firefox wayland screensharing indicator
+for_window [app_id="firefox" title="Firefox — Sharing Indicator"] {
+    floating enable
+}
+
+for_window [app_id="pavucontrol"] {
+    floating enable
+    move position center
+}
+
+for_window [app_id="pavucontrol-qt"] {
+    floating enable
+    move position center
+}
+
+for_window [app_id="lxqt-policykit-agent"] {
+    floating enable
+    move position center
+}
+
+for_window [app_id="galculator"] {
+    floating enable
+    move position center
+}
+
+for_window [app_id="org.gnome.DejaDup"] {
+    floating enable
+    move position center
+}
+
+for_window [title="nmtui"] {
+    floating enable
+    move position center
+    resize set 800 600
+}
+
+
+# Customization
 gaps inner 6
 gaps outer 6
 default_border pixel 1
+
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Adwaita-dark'
+    gsettings set $gnome-schema cursor-theme 'Breeze'
+    gsettings set $gnome-schema color-scheme prefer-dark
+}
+exec_always import-gsettings
 
 # Property Name             Border  BG      Text    Indicator Child-border
 client.focused              #ffffff #ffffff #ffffff #ffffff   #ffffff
 client.focused_inactive     #595959 #595959 #595959 #595959   #2f343f
 
 # Auto start programs
-exec_always autotiling
-exec_always /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
-exec_always $HOME/.local/bin/random_wall
+exec_always $HOME/.config/sway/autotiling.py
+exec /usr/libexec/lxqt-policykit-agent
 exec_always gammastep -l 38.7:-9.14 -t 5700:3600 -g 0.8 -v
 exec_always dunst
 exec $HOME/.config/sway/inactive-windows-transparency.py --opacity 0.97
-exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+exec /usr/libexec/sway-systemd/wait-sni-ready && \
+    systemctl --user start sway-xdg-autostart.target
+exec /usr/libexec/sway-systemd/assign-cgroups.py
+exec /usr/libexec/sway-systemd/session.sh
 
+# Stop nm-applet and bluetooth appearing on the tray
+exec pkill nm-applet
+exec pkill blueman-applet
 
-
-
-
-include /etc/sway/config.d/*

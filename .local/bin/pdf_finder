@@ -5,7 +5,8 @@
 # zathura "$selected_pdf" &
 
 selected_pdf=$(find ~ -name '*.pdf' | sed -e 's:/home/francisco:~:g' | fzf) || exit
-swayhide zathura "$selected_pdf"
+echo $selected_pdf
+$HOME/.cargo/bin/swayhide zathura "$selected_pdf"
 exit
 
 
