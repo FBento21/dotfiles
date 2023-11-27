@@ -20,6 +20,9 @@ export PATH="$HOME/.local/bin:$PATH"
 # Application compatibility
 export _JAVA_AWT_WM_NONREPARENTING=1
 
+# SSH Agent Socket
+export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+
 alias imv="swayhide imv"
 alias zathura="swayhide zathura"
 
