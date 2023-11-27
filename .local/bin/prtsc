@@ -1,6 +1,6 @@
 #!/bin/bash
 
-op=$(echo -e "    Ecrã\n   Janela\n   Seleção" | wofi -i --sort-order=alphabetical --dmenu --columns=3 -L 3 --width=15% -b| awk '{print tolower($2)}' )
+op=$(echo -e "    Ecrã\n   Janela\n   Seleção" | wofi -i --sort-order=alphabetical --dmenu --columns=3 -L 3 --width=17% -b| awk '{print tolower($2)}' )
 
 name="$HOME/Imagens/Capturas de ecrã/Captura de ecrã de "
 name+=$(date '+%Y-%m-%d %H-%M-%S')

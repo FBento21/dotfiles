@@ -34,6 +34,8 @@ exec LT="$lock_timeout" ST="$screen_timeout" LT=${LT:-300} ST=${ST:-60} && \
 ### Input configuration
 input "1:1:AT_Translated_Set_2_keyboard" {
    xkb_layout pt
+    repeat_delay 200
+    repeat_rate 30
 }
 input "10248:257:MSFT0001:00_2808:0101_Touchpad" {
    dwt enabled
@@ -169,6 +171,8 @@ bindsym $mod+Shift+P exec kitty $HOME/.local/bin/pdf_finder
 bindsym Print exec $HOME/.local/bin/prtsc
 bindsym $mod+Shift+S exec $HOME/.local/bin/shift_workspaces
 bindsym $mod+Shift+r exec kitty ranger
+bindsym Alt+i gaps inner current plus 2
+bindsym Alt+d gaps inner current minus 2
 
 # Status Bar:
 bar {
@@ -216,7 +220,30 @@ for_window [app_id="galculator"] {
 for_window [app_id="org.gnome.DejaDup"] {
     floating enable
     move position center
+    resize set 800 600
+    border pixel 1
 }
+
+for_window [app_id="gnome-disks"] {
+    floating enable
+    move position center
+    resize set 800 600
+    border pixel 1
+}
+
+for_window [class="Timeshift-gtk"] {
+    floating enable
+    move position center
+    resize set 800 600
+    border pixel 1
+}
+
+for_window [class="Matplotlib"] {
+    floating enable
+    move position center
+    border pixel 1
+}
+
 
 for_window [title="nmtui"] {
     floating enable
@@ -229,6 +256,8 @@ for_window [title="nmtui"] {
 gaps inner 6
 gaps outer 6
 default_border pixel 1
+default_floating_border pixel 1
+
 
 set $gnome-schema org.gnome.desktop.interface
 
@@ -237,6 +266,8 @@ exec_always {
     gsettings set $gnome-schema cursor-theme 'Breeze'
     gsettings set $gnome-schema color-scheme prefer-dark
 }
+exec_always gsettings set org.gnome.desktop.wm.preferences button-layout :
+
 exec_always import-gsettings
 
 # Property Name             Border  BG      Text    Indicator Child-border
@@ -248,13 +279,8 @@ exec_always $HOME/.config/sway/autotiling.py
 exec /usr/libexec/lxqt-policykit-agent
 exec_always gammastep -l 38.7:-9.14 -t 5700:3600 -g 0.8 -v
 exec_always dunst
-exec $HOME/.config/sway/inactive-windows-transparency.py --opacity 0.97
+exec $HOME/.config/sway/inactive-windows-transparency.py --opacity 0.95
 exec /usr/libexec/sway-systemd/wait-sni-ready && \
     systemctl --user start sway-xdg-autostart.target
 exec /usr/libexec/sway-systemd/assign-cgroups.py
 exec /usr/libexec/sway-systemd/session.sh
-
-# Stop nm-applet and bluetooth appearing on the tray
-exec pkill nm-applet
-exec pkill blueman-applet
-

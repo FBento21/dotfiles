@@ -73,8 +73,8 @@ call plug#begin()
         " let g:tex_flavor='latex'
         let g:vimtex_view_method='zathura_simple'
         let g:vimtex_compiler_engine = 'lualatex'
-    Plug 'Mofiqul/dracula.nvim'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'shaunsingh/nord.nvim'
     Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
     Plug 'nvim-lualine/lualine.nvim'
     Plug 'nvim-tree/nvim-web-devicons'
@@ -95,7 +95,7 @@ let g:vimtex_motion_matchparen = 0
 let g:vimtex_indent_enabled = 0
 
 "Theme
-colorscheme dracula
+colorscheme nord
 hi Normal guibg=NONE ctermbg=NONE
 
 " Open Vim in the last position
@@ -159,7 +159,7 @@ nnoremap <F5> :call RunCode()<CR>
 lua require('lualine').setup()
 
 " Debug python code
-lua require('dap-python').setup('/usr/bin/python')
+lua require('dap-python').setup('~/Projetos/Dirac-Paper/Code/Dirac/bin/python')
 lua require('dap-config')
 lua require("dapui").setup()
 
