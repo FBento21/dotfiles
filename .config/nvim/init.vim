@@ -77,7 +77,6 @@ call plug#begin()
     Plug 'shaunsingh/nord.nvim'
     Plug 'akinsho/toggleterm.nvim', {'tag' : '*'}
     Plug 'nvim-lualine/lualine.nvim'
-    Plug 'nvim-tree/nvim-web-devicons'
     Plug 'mfussenegger/nvim-dap'
     Plug 'mfussenegger/nvim-dap-python'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -85,6 +84,7 @@ call plug#begin()
     Plug 'windwp/nvim-autopairs'
     Plug 'mhinz/vim-startify'
     Plug 'preservim/nerdtree'
+    Plug 'ryanoasis/vim-devicons'
 call plug#end()
 
 " Vimtex
@@ -212,6 +212,14 @@ require'nvim-treesitter.configs'.setup {
 }
 
 EOF
+
+" Nerdtree stuf
+" Exit Vim if NERDTree is the only window remaining in the only tab.
+ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+" autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | call ToggleTermToggleAll() | quit | endif
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
 
 " Set title for the swallowing
 set title

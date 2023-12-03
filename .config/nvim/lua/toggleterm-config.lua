@@ -11,6 +11,7 @@ toggleterm.setup({
  insert_mappings = true,
  persist_size = true,
  shell = vim.o.shell,
+ close_on_exit = true,
  float_opts = {
   border = "curved",
   winblend = 0,

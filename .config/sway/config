@@ -251,6 +251,12 @@ for_window [title="nmtui"] {
     resize set 800 600
 }
 
+for_window [class="TkFDialog"] {
+    floating enable
+    move position center
+    resize set 700 400
+}
+
 
 # Customization
 gaps inner 6

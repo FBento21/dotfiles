@@ -23,8 +23,10 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # SSH Agent Socket
 export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
 
+# Aliases
 alias imv="swayhide imv"
 alias zathura="swayhide zathura"
+alias dirac="source ~/Projetos/Dirac-Paper/Code/Dirac/bin/activate"
 
 # Startup command
 pfetch
